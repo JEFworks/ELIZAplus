@@ -58,20 +58,11 @@
 	     // Update image
 	     document.getElementById('main-image').src = imgs[userSentiment];
 	 }
-
-	 // Make Eliza pause
-	 function wait(ms)
-	 {
-	     var d = new Date();
-	     var d2 = null;
-	     do { d2 = new Date(); }
-	     while(d2-d < ms);
-	 }
 	 
-
 	 function elizaReset() {
 	     eliza.reset();
 	     elizaLines.length = 0;
+	     userSentiment = 0;
 	     elizaStep();
 	 }
 
