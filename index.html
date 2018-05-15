@@ -1,0 +1,132 @@
+<HTML>
+    <HEAD>
+	<TITLE>ElizaBot+</TITLE>
+	
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="js/elizabot.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="js/elizadata.js"></SCRIPT>	
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="js/sentimood.js"></SCRIPT>
+
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">	   
+	 var eliza = new ElizaBot();
+	 var elizaLines = new Array();
+	 var sentiment = new Sentimood();
+
+	 var displayCols = 60;
+	 var displayRows = 20;
+
+	 var userSentiment = 0;
+	 
+	 var imgs = {};
+	 imgs[0] = "img/default-01.png";
+	 imgs[1] = "img/happy1-01.png";
+	 imgs[2] = "img/happy2-01.png";
+	 imgs[3] = "img/happy3-01.png";
+	 imgs[-1] = "img/sad1-01.png";
+	 imgs[-2] = "img/sad2-01.png";
+	 imgs[-3] = "img/sad3-01.png";
+	 
+	 function updateImage(val) {
+	     // If continuing on same sentiment
+	     if(val * userSentiment >= 0) {
+		 if(val < 0) {
+		     userSentiment -= 1;
+		 }
+		 if(val > 0) {
+		     userSentiment += 1;
+		 }
+	     }
+	     else {
+		 // switch moods
+		 userSentiment = val
+	     }
+	     
+	     if(userSentiment < -3) {
+		 userSentiment = -3
+	     }
+	     if(userSentiment > 3) {
+		 userSentiment = 3
+	     }
+
+	     // Update image
+	     document.getElementById('main-image').src = imgs[userSentiment];
+	 }
+
+	 // Make Eliza pause
+	 function wait(ms)
+	 {
+	     var d = new Date();
+	     var d2 = null;
+	     do { d2 = new Date(); }
+	     while(d2-d < ms);
+	 }
+	 
+
+	 function elizaReset() {
+	     eliza.reset();
+	     elizaLines.length = 0;
+	     elizaStep();
+	 }
+
+	 function elizaStep() {
+	     var f = document.forms.e_form;
+	     var userinput = f.e_input.value;
+	     
+	     //console.log(sentiment.analyze(userinput));
+	     updateImage(sentiment.analyze(userinput)['score']);
+
+	     if (eliza.quit) {
+		 f.e_input.value = '';
+		 if (confirm("This session is over.\nStart over?")) elizaReset();
+		 f.e_input.focus();
+		 return;
+	     }
+	     else if (userinput != '') {
+		 var usr = 'YOU:   ' + userinput;
+		 var rpl ='ELIZA: ' + eliza.transform(userinput);
+		 elizaLines.push(usr);
+		 elizaLines.push(rpl);
+		 // display nicely
+		 // (fit to textarea with last line free - reserved for extra line caused by word wrap)
+		 var temp  = new Array();
+		 var l = 0;
+		 for (var i=elizaLines.length-1; i>=0; i--) {
+		     l += 1 + Math.floor(elizaLines[i].length/displayCols);
+		     if (l >= displayRows) break
+		     else temp.push(elizaLines[i]);
+		 }
+		 elizaLines = temp.reverse();		 
+		 f.e_display.value = elizaLines.join('\n');
+	     }
+	     else if (elizaLines.length == 0) {
+		 // no input and no saved lines -> output initial
+		 var initial = 'ELIZA: ' + eliza.getInitial();
+		 elizaLines.push(initial);
+		 f.e_display.value = initial + '\n';
+	     }
+	     f.e_input.value = '';
+	     f.e_input.focus();
+	 }
+
+	</SCRIPT>
+    </HEAD>
+
+    <BODY TOPMARGIN="0" LEFTMARGIN="0" RIGHTMARGIN="0" BOTTOMMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0" STYLE="border:0" onload="window.setTimeout('elizaReset()',100)"><A NAME="top"></A>
+
+	<CENTER>
+	    <H3>Eliza</H3>
+	    <img id="main-image" src="img/default.png" width=300px height=300px>
+	    <TABLE BORDER="0" CELLSPACING="10" CELLPADDING="0">
+		<FORM NAME="e_form" onsubmit="elizaStep();return false">
+		    <TR><TD COLSPAN="2"><TEXTAREA NAME="e_display" COLS="60" ROWS="20"></TEXTAREA></TD></TR>
+		    <TR VALIGN="middle">
+			<TD><INPUT TYPE="text" NAME="e_input" SIZE="50"></TD>
+			<TD ALIGN="right"><INPUT TYPE="submit" VALUE="Talk"> <INPUT TYPE="reset" VALUE="Reset" onClick="window.setTimeout('elizaReset()',100)"></TD>
+		    </TR>
+		</FORM>
+	    </TABLE>
+	</CENTER>
+
+
+    </BODY>
+</HTML>
+
