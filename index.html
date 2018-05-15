@@ -60,9 +60,9 @@
 	 }
 	 
 	 function elizaReset() {
+	     userSentiment = 0;
 	     eliza.reset();
 	     elizaLines.length = 0;
-	     userSentiment = 0;
 	     elizaStep();
 	 }
 
@@ -115,7 +115,7 @@
 	
 	<CENTER>
 	    <H3>Eliza+</H3>
-	    <img id="main-image" src="img/default.png" width=300px height=300px>
+	    <img id="main-image" src="img/default-01.png" width=300px height=300px>
 	    <TABLE>
 		<FORM NAME="e_form" onsubmit="elizaStep();return false">
 		    <TR>
