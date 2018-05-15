@@ -91,7 +91,7 @@ var elizaKeywords = [
     ["xnone", 0, [
 	["*", [
 	    "Please go on.",
-	    "That is interesting.Please continue.",
+	    "That is interesting. Please continue.",
 	    "Tell me more about that.",
 	    "Does talking about this bother you?"
 	]]
@@ -101,7 +101,7 @@ var elizaKeywords = [
 	    "Please don't apologise.",
 	    "Apologies are not necessary.",
 	    "I've told you that apologies are not required.",
-	    "It did not bother me.Please continue."
+	    "It did not bother me. Please continue."
 	]]
     ]],
     ["apologise", 0, [
@@ -597,10 +597,10 @@ var elizaKeywords = [
 // here: cleanings for multiple bots talking to each other
 var elizaPostTransforms = [
 	/ old old/g, " old",
-	/\bthey were( not)? me\b/g, "it was$1 me",
-	/\bthey are( not)? me\b/g, "it is$1 me",
-	/Are they( always)? me\b/, "it is$1 me",
-	/\bthat your( own)? (\w+)( now)? \?/, "that you have your$1 $2?",
+	/\bthey were( not)? me\b/g, "it was $1 me",
+	/\bthey are( not)? me\b/g, "it is $1 me",
+	/Are they( always)? me\b/, "it is $1 me",
+	/\bthat your( own)? (\w+)( now)? \?/, "that you have your $1 $2?",
 	/\bI to have (\w+)/, "I have $1",
 	/Earlier you said your( own)? (\w+)( now)?\./, "Earlier you talked about your $2."
 ];
