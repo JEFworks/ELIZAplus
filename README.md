@@ -6,11 +6,14 @@ I first heard of ELIZA via the [Radiolab podcast](https://www.wnycstudios.org/st
 
 While ELIZA's responses were originally limited to text, advancements in computation now allow us to easily integrate graphics. Similarly, recent advancements in natural language processing can enable sentiment detection of user-responses to create a more holistic chatbot experience. I made ELIZA+ as a simple extension of ELIZA to detect and respond to the sentiment of user-responses by updating an avatar. This purely client-side implementation means that user-input is never stored on any server, thereby protecting user privacy. Future work may include more complex integration of artificial intelligence algorithms and avatar personalization. 
 
+## [Try it out](http://jef.works/ELIZAplus/)
 ![](demo.gif)
 
-Credit:
+## Credit
 
-- ELIZA implementation: [elizabot.js by Norbert Landsteiner](http://www.masswerk.at/elizabot/)- 
+Eliza+ builds on:
+
+- ELIZA implementation: [elizabot.js by Norbert Landsteiner](http://www.masswerk.at/elizabot/)
 - AFINN sentiment analysis: [Sentimood by Ethan Arterberry](https://github.com/soops/sentimood), a client-side version of [Sentimental by Roman K Yudin and Kevin M Roth](https://github.com/thinkroth/Sentimental) 
 - Avatar graphics: [Girl avatar by Branhy](https://www.freepik.com/free-vector/girl-avatars-collection_872957.htm)
 
